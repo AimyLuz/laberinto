@@ -9,6 +9,7 @@
 <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
 <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.6.1/dist/aframe-extras.min.js"></script>
         <script src="https://cdn.rawgit.com/ngokevin/kframe/d7bd9968/components/sun-sky/dist/aframe-sun-sky.min.js"></script>
+        
 </head>
 <body>
     
@@ -105,14 +106,16 @@ let mapa = [
                         //dibujar el jugador
                         jugador.setAttribute('position', posicion)
                     }else {
-                        //dibujar premio
-                        premio = document.createElement('a-sphere');
-                        premios.appendChild(premio); 
-                        premio.setAttribute('position', posicion)
-                        premio.setAttribute('color', 'tomato');
-                        premio.setAttribute('radio', '0.3');
-                        premio.setAttribute('class', 'premio');
-                    }
+    // dibujar premio
+    premio = document.createElement('a-sphere');
+    premios.appendChild(premio); 
+    premio.setAttribute('position', posicion);
+    premio.setAttribute('radius', '0.6');  // Cambio: 'radius' en lugar de 'radio'
+    premio.setAttribute('class', 'premio');
+
+    // Añadir la imagen como material
+    premio.setAttribute('material', 'src: #mailen'); // Cambio: asignar la imagen 'mailen'
+}
                     
             }
         }
