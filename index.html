@@ -14,11 +14,11 @@
     
 
     <a-scene>
-
+    
         <a-assets>
             <img src="./img/rio.jpg" alt="" id="piso">
             <img src="./img/venecia.jpg" alt="" id="pared">
-            <img src="./img/mailen2.jpg" alt="" id="mailen">
+            <img src="./img/mailen2.jpg" alt="mai" id="mailen">
         </a-assets>
 
         <a-sun-sky material="sunPosition: 0 1 0"></a-sun-sky>
@@ -105,14 +105,16 @@ let mapa = [
                         //dibujar el jugador
                         jugador.setAttribute('position', posicion)
                     }else {
-                        //dibujar premio
+                     // dibujar premio
                         premio = document.createElement('a-sphere');
                         premios.appendChild(premio); 
-                        premio.setAttribute('position', posicion)
-                        premio.setAttribute('color', 'tomato');
-                        premio.setAttribute('radio', '0.3');
+                        premio.setAttribute('position', posicion);
+                        premio.setAttribute('radius', '0.3');  // Cambio: 'radius' en lugar de 'radio'
                         premio.setAttribute('class', 'premio');
-                    }
+
+                        // Añadir la imagen como material
+                        premio.setAttribute('material', 'src: #mailen'); // Cambio: asignar la imagen 'mailen'
+                        }
                     
             }
         }
