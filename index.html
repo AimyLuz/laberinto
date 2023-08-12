@@ -23,12 +23,10 @@
 
         <a-sun-sky material="sunPosition: 0 1 0"></a-sun-sky>
 
-
         <a-entity id="jugador" camera kinematic-body universal-controls position="0 1.6 -1">
             <a-text value="" width="2" id="score" color="black" position="-1 -.5 -1"></a-text>
             <a-cursor fuse="true" fuse-timeout="800"></a-cursor>
         </a-entity>
-        
         
 
         <a-grid static-body src="#piso"></a-grid>
@@ -57,19 +55,6 @@
             [1,1,1,1,1,1,1,1,1,1] 
         ];
 */
-        // Obtener el elemento de la cámara
-        let jugador = document.querySelector('#jugador');
-
-        // Verificar si es un dispositivo móvil
-        if (AFRAME.utils.device.isMobile()) {
-            // Si es un dispositivo móvil, deshabilitar los look-controls
-            jugador.removeAttribute('look-controls');
-        } else {
-            // Si no es un dispositivo móvil, habilitar los look-controls
-            jugador.setAttribute('look-controls', '');
-        }
-
-
 let mapa = [
             [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
@@ -120,16 +105,14 @@ let mapa = [
                         //dibujar el jugador
                         jugador.setAttribute('position', posicion)
                     }else {
-                     // dibujar premio
+                        //dibujar premio
                         premio = document.createElement('a-sphere');
                         premios.appendChild(premio); 
-                        premio.setAttribute('position', posicion);
-                        premio.setAttribute('radius', '0.6');  // Cambio: 'radius' en lugar de 'radio'
+                        premio.setAttribute('position', posicion)
+                        premio.setAttribute('color', 'tomato');
+                        premio.setAttribute('radio', '0.3');
                         premio.setAttribute('class', 'premio');
-
-                        // Añadir la imagen como material
-                        premio.setAttribute('material', 'src: #mailen'); // Cambio: asignar la imagen 'mailen'
-                        }
+                    }
                     
             }
         }
