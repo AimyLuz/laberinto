@@ -24,7 +24,8 @@
         <a-sun-sky material="sunPosition: 0 1 0"></a-sun-sky>
 
 
-        <a-entity id="jugador" camera look-controls wasd-controls touch-controls="controller: 0" position="0 1.6 -1">
+        <a-entity id="jugador" camera kinematic-body universal-controls position="0 1.6 -1">
+            <a-text value="" width="2" id="score" color="black" position="-1 -.5 -1"></a-text>
             <a-cursor fuse="true" fuse-timeout="800"></a-cursor>
         </a-entity>
         
@@ -56,6 +57,19 @@
             [1,1,1,1,1,1,1,1,1,1] 
         ];
 */
+        // Obtener el elemento de la cámara
+        let jugador = document.querySelector('#jugador');
+
+        // Verificar si es un dispositivo móvil
+        if (AFRAME.utils.device.isMobile()) {
+            // Si es un dispositivo móvil, deshabilitar los look-controls
+            jugador.removeAttribute('look-controls');
+        } else {
+            // Si no es un dispositivo móvil, habilitar los look-controls
+            jugador.setAttribute('look-controls', '');
+        }
+
+
 let mapa = [
             [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
