@@ -13,42 +13,49 @@
 <body>
     
 
-    <a-sun-sky material="sunPosition: 0 1 0"></a-sun-sky>
+    <a-scene>
 
-        <a-entity id="jugador" camera kinematic-body universal-controls position="0 1.6 -1" achor="center">
-            <a-text value="" width="4" id="score" color="black" position="-1 -.5 -1"></a-text>
+        <a-assets>
+            <img src="./img/rio.jpg" alt="" id="piso">
+            <img src="./img/venecia.jpg" alt="" id="pared">
+            <img src="./img/mailen2.jpg" alt="" id="mailen">
+        </a-assets>
+
+        <a-sun-sky material="sunPosition: 0 1 0"></a-sun-sky>
+
+
+        <a-entity id="jugador" camera kinematic-body universal-controls position="0 1.6 -1">
+            <a-text value="" width="2" id="score" color="black" position="-1 -.5 -1"></a-text>
             <a-cursor fuse="true" fuse-timeout="800"></a-cursor>
         </a-entity>
 
         <a-grid static-body src="#piso"></a-grid>
         <a-entity id="muros" src="#pared"></a-entity>
-        <a-entity id="premios"></a-entity>
+        <a-entity id="premios" src="#mailen"></a-entity>
 
     </a-scene>
 
     <script>
+            //0 aire
+            //1 pared
+            //2 jugador
+            //3 premio
 
-        //  0 aire
-        //  1 pared
-        //  2 jugador
-        //  3 premio
-
-        /*         
-                let mapa = [
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 2, 0, 0, 0, 0, 0, 0, 0, 1],
-                    [1, 0, 0, 3, 0, 0, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 0, 0, 0, 3, 0, 1],
-                    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                    [1, 0, 3, 0, 0, 0, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 0, 0, 0, 3, 0, 1],
-                    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-                ]; 
-                */
-
+/*
         let mapa = [
+            [1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,3,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,2,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1] 
+        ];
+*/
+let mapa = [
             [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
             [1, 0, 0, 3, 0, 0, 0, 0, 1, 1],
@@ -72,61 +79,60 @@
         let scoreElement = document.querySelector('#score');
         let jugador = document.querySelector('#jugador');
 
-        for (let x = 0; x < mapa.length; x += 1) {
-            for (let z = 0; z < mapa.length; z += 1) {
+        for (let x=0; x < mapa.length; x+=1) {
+            for (let z=0; z < mapa.length; z+=1) {
                 let posicion = (x - mapa.length / 2) * TAMANO_PARED +
-                    " " +
+                    " " + 
                     1.5 +
                     " " +
-                    (z - mapa[x].length / 2) * TAMANO_PARED;
+                    (z - mapa[x].length /2) * TAMANO_PARED;
 
-                if (mapa[x][z] === 0) {
-                    continue;
-                } else if (mapa[x][z] === 1) {
-                    // dibujar pared
-                    muro = document.createElement('a-box');
-                    muros.appendChild(muro);
-                    muro.setAttribute('color', 'fff');
-                    muro.setAttribute('material', 'src: #pared');
-                    muro.setAttribute('width', TAMANO_PARED);
-                    muro.setAttribute('height', ALTO_PARED);
-                    muro.setAttribute('depth', TAMANO_PARED);
-                    muro.setAttribute('position', posicion);
-                    muro.setAttribute('static-body', "");
+                    if(mapa[x][z] === 0) {
+                        continue;
+                    } else if (mapa[x][z] === 1){
+                        //dibujar pared
+                        muro= document.createElement('a-box');
+                        muros.appendChild(muro);
+                        muro.setAttribute('color','fff')
+                        muro.setAttribute('material', 'src: #pared');
+                        muro.setAttribute('width', TAMANO_PARED);
+                        muro.setAttribute('height', ALTO_PARED);
+                        muro.setAttribute('depth', TAMANO_PARED);
+                        muro.setAttribute('position', posicion);
+                        muro.setAttribute('static-body', "");
 
-                } else if (mapa[x][z] === 2) {
-                    // dibujar el jugador
-                    jugador.setAttribute('position', posicion)
-                } else {
-                    // premio
-                    premio = document.createElement('a-sphere');
-                    premios.appendChild(premio);
-                    premio.setAttribute('position', posicion);
-                    premio.setAttribute('color', 'tomato');
-                    premio.setAttribute('radius', '0.3');
-                    premio.setAttribute('class', "premio");
-                }
+                    } else if (mapa[x][z] === 2){
+                        //dibujar el jugador
+                        jugador.setAttribute('position', posicion)
+                    }else {
+                        //dibujar premio
+                        premio = document.createElement('a-sphere');
+                        premios.appendChild(premio); 
+                        premio.setAttribute('position', posicion)
+                        premio.setAttribute('color', 'tomato');
+                        premio.setAttribute('radio', '0.3');
+                        premio.setAttribute('class', 'premio');
+                    }
+                    
             }
         }
 
         premios = document.querySelectorAll('.premio');
 
         let score = premios.length;
-
-        scoreElement.setAttribute('value', `Encontra ${score} premios`);
+        scoreElement.setAttribute('value',`Econcontra ${score} premios`);
         scoreElement.setAttribute('color', '#000');
 
         premios.forEach(premio => {
-            premio.addEventListener('click', () => {
-                premio.setAttribute('visible', false);
+            premio.addEventListener('click', ()=> {
+                premio.setAttribute('visible', false)
                 score -= 1;
                 scoreElement.setAttribute('value', `Encontra ${score} premios`);
-
                 if (score <= 0) {
                     scoreElement.setAttribute('value', "Encontraste todos los premios")
                 }
             })
-        })
+        });
 
     </script>
 </body>
