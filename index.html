@@ -122,16 +122,16 @@ let mapa = [
         premios = document.querySelectorAll('.premio');
 
         let score = premios.length;
-        scoreElement.setAttribute('value',`Econcontra ${score} premios`);
+        scoreElement.setAttribute('value',`Mailen se perdió en venecia, Econcontrá ${score} veces a Mailen, porque se escapa`);
         scoreElement.setAttribute('color', '#000');
 
         premios.forEach(premio => {
             premio.addEventListener('click', ()=> {
                 premio.setAttribute('visible', false)
                 score -= 1;
-                scoreElement.setAttribute('value', `Encontra ${score} premios`);
+                scoreElement.setAttribute('value', `Encontraste ${score} veces a Mai`);
                 if (score <= 0) {
-                    scoreElement.setAttribute('value', "Encontraste todos los premios")
+                    scoreElement.setAttribute('value', "Encontraste en todos lados a Mailen ¡GANASTE!")
                 }
             })
         });
